@@ -1,0 +1,63 @@
+@startuml CasaYComponentesClases
+
+    hide circle
+    skinparam classAttributeIconSize 0
+    hide interface fields
+
+    class Casa {
+        +agregarComponente(componente : Componente) : void
+        +getGastoTotal() : int
+    }
+
+    abstract class Componente <<interface>> {
+        {abstract}getConsumo() : int
+    }
+
+    class CercoElectrico {
+'        {static}+CercoElectrico(metros : int, precioKw : int) : CercoElectrico
+        +getConsumo() : int
+    }
+
+    class Estufa {
+'        {static}+Estufa(metros : int, precioKw : int) : Estufa
+        +getConsumo() : int
+    }
+
+    class LosaRadiante {
+'        {static}+LosaRadiante(metros : int, precioKw : int) : LosaRadiante
+        +getConsumo() : int
+    }
+
+    class Salamandra {
+'        {static}+Salamandra(metros : int, precioKw : int) : Salamandra
+        +agregarMadera(madera : Madera) : void
+        +getConsumo() : int
+    }
+
+    abstract class Madera {
+        #precioKg
+        #cantidadKg
+        +getCantidadKg() : int
+        {abstract}+getConsumo(metros : int) : int
+    }
+
+    class Quebracho {
+        +getConsumo(metros : int) : int
+    }
+
+    class Pino {
+        +getConsumo(metros : int) : int
+    }
+
+    hide Componente fields
+
+    Casa o--right "*" Componente
+    Salamandra ..up|> Componente
+    Salamandra o-- "*" Madera
+    Quebracho --up|> Madera
+    Pino --up|> Madera
+    Estufa ..up|> Componente
+    LosaRadiante ..up|> Componente
+    CercoElectrico ..up|> Componente
+
+@enduml

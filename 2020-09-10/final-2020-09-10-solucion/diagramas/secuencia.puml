@@ -1,0 +1,51 @@
+@startuml UsuarioCreaCasaConSalamandraConQuebrachoYPinoYCalculaSuGastoTotal
+
+actor Usuario
+hide footbox
+
+activate Usuario
+
+participant "salamandra : Salamandra" as Salamandra1
+participant "quebracho : Quebracho" as Quebracho1
+participant "pino : Pino" as Pino1
+
+create Casa
+Usuario -> Casa: Casa()
+
+create Salamandra1
+Usuario -> Salamandra1: Salamandra(5)
+
+create Quebracho1
+Usuario -> Quebracho1: Quebracho(2)
+
+Usuario -> Salamandra1: agregarMadera(quebracho)
+activate Salamandra1
+deactivate Salamandra1
+
+create Pino1
+Usuario -> Pino1: Pino(3)
+
+Usuario -> Salamandra1: agregarMadera(pino)
+activate Salamandra1
+deactivate Salamandra1
+
+Usuario -> Casa: agregarComponente(salamandra)
+activate Casa
+deactivate Casa
+
+Usuario -> Casa: getGastoTotal()
+activate Casa
+Casa -> Salamandra1: getConsumo()
+activate Salamandra1
+Salamandra1 -> Quebracho1: getConsumo(5)
+activate Quebracho1
+return 5 * 4 * 2 = 80
+Salamandra1 -> Pino1: getConsumo(5)
+activate Pino1
+return 5 * 3 * 2 / 3 = 10
+return 80 + 10 = 90
+return 90
+
+deactivate Usuario
+
+@enduml
