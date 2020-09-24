@@ -1,0 +1,68 @@
+@startuml
+
+    hide circle
+    skinparam classAttributeIconSize 0
+    hide interface fields
+
+    abstract class Equipable <<interface>>  {
+        {abstract}equipar(portaBici : PortaBici) : void
+    }
+
+    abstract class Cargable <<interface>>  {
+        {abstract}cargar(carga : Bici) : void
+        {abstract}cargar(carga : Helatodo) : void
+        {abstract}descargar() : Carga
+    }
+
+    abstract class Carga <<interface>>
+
+    Cargable *--right Carga
+    Equipable <|.. Auto
+    Cargable <|.. Auto
+    Cargable <|.. Moto
+
+    Auto *-- PortaBici
+
+    Cargable <|.. PortaBici
+
+    class PortaBici {
+        + cargar(carga : Bici) : void
+        + cargar(carga : Helatodo) : void
+        + descargar() : Carga
+    }
+
+    PortaBici o--right ConjuntoCarga
+
+    Moto o-- ConjuntoCarga
+
+    class Auto {
+        + equipar(portaBici : PortaBici) : void
+        + cargar(carga : Bici) : void
+        + cargar(carga : Helatodo) : void
+        + descargar() : Carga
+    }
+
+    class Moto {
+        + cargar(carga : Bici) : void
+        + cargar(carga : Helatodo) : void
+        + descargar() : Carga
+    }
+
+    PortaBici <|-- Ninguno
+
+    class Ninguno {
+        + cargar(carga : Bici) : void
+    }
+
+    class PortaBici {
+    }
+
+    class ConjuntoCarga {
+        + cargar(carga : Bici) : void
+        + cargar(carga : Helatodo) : void
+        + descargar() : Carga
+    }
+
+    ConjuntoCarga ..|> Cargable
+
+@enduml
