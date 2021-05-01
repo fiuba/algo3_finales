@@ -1,0 +1,14 @@
+@startuml
+
+TestCase -> Usuario: paso1(id, password)
+Usuario -> Multiple: paso1(id, password)
+Multiple -> Simple: loguearse(id, password)
+return satisfactorio
+TestCase -> Usuario: paso2(id, codigoSeguridad)
+Usuario -> Multiple: paso2(id,codigoSeguridad)
+Multiple -> MultifactorCodigo: loguearse(id,codigoSeguridad)
+create Error
+MultifactorCodigo -> Error: singal
+        
+
+@enduml

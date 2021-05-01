@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+together {
+        class Simple
+        class Multiple
+        class MultifactorCodigo
+        
+}
+
+class Simple {
+        - id
+        - password
+        
+        loguearse(id, password)
+}
+
+class MultifactorQR {
+        - qr
+        loguearse(id, QR)
+}
+
+class MultifactorCodigo {
+        - codigoSeguridad
+        
+        loguearse(id, codigoSeguridad)
+}
+
+class Multiple {
+        paso1(id, password)
+        paso2(id, codigoSeguridad)
+}
+
+class Usuario {
+        loguearse(id, password)
+        loguearse(id, qr)
+
+        paso1(id, password)
+        paso2(id, codigoSeguridad)
+ }
+
+together {
+        class Simple
+        class Multiple
+        class MultifactorCodigo
+        
+}
+
+Usuario *-- "1" Simple
+Usuario *-- "1" MultifactorQR
+Usuario *-- "1" Multiple
+
+Multiple o- "1" Simple
+Multiple o-- "1" MultifactorCodigo
+
+@enduml

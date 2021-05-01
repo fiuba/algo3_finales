@@ -1,0 +1,8 @@
+@startuml
+
+TestCase -> Usuario: loguearse(id, QR)
+activate MultifactorQR
+        Usuario -> MultifactorQR: loguearse(id, QR)
+        return staisfactorio
+
+@enduml
