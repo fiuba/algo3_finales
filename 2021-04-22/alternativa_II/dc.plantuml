@@ -1,0 +1,60 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class ValidadorSeguridad {
+        - id
+        
+
+        + ValidadorSeguridad(valorReferencia : Elementoseguridad)
+        + loguearse(id, elementoSeguridad)
+}
+
+
+class Multiple {
+        paso1(id, password)
+        paso2(id, codigoSeguridad)
+}
+note top: Tiene dos validadores distintos. Uno es para validar el código.
+
+class Usuario {
+        loguearse(id, elementoSeguridad)
+
+        paso1(id, password)
+        paso2(id, codigoSeguridad)
+ }
+
+class Elementoseguridad {
+        # valorReferencia
+        validar(elementoSeguridad) 
+}
+
+class Password {
+        validar(elementoSeguridad) 
+} 
+
+class QR {
+        validar(elementoSeguridad) 
+} 
+
+class Codigo {
+        validar(elementoSeguridad) 
+} 
+
+together {
+        class ValidadorSeguridad
+        class Elementoseguridad
+}
+
+Usuario *-- "1" ValidadorSeguridad
+Usuario *-- "1" Multiple
+
+Multiple o---- "1" ValidadorSeguridad
+Multiple o- "1" ValidadorSeguridad : validadorCodigo
+
+ValidadorSeguridad o- "1" Elementoseguridad
+
+Elementoseguridad <|-- Password
+Elementoseguridad <|-- Codigo
+Elementoseguridad <|-- QR
+
+@enduml

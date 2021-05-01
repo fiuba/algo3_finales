@@ -1,0 +1,8 @@
+@startuml
+
+TestCase -> Usuario: loguearse(id, QR)
+Usuario -> ValidadorSeguridad: loguearse(id, QR)
+ValidadorSeguridad -> QR: validar( QR )
+return satisfactorio
+
+@enduml

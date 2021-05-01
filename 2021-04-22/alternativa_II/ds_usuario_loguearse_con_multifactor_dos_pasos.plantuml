@@ -1,0 +1,16 @@
+@startuml
+
+TestCase -> Usuario: paso1(id, password)
+Usuario -> Multiple: paso1(id, password)
+Multiple -> ValidadorSeguridad: loguearse(id, password)
+ValidadorSeguridad -> Password: validar(password)
+return satisfactorio
+TestCase -> Usuario: paso2(id, codigoSeguridad)
+Usuario -> Multiple: paso2(id,codigoSeguridad)
+Multiple -> ValidadorSeguridad: loguearse(id, codigoSeguridad)
+Multiple -> Codigo: validar(codigoSeguridad)
+create Error
+Codigo -> Error: singal
+        
+
+@enduml
