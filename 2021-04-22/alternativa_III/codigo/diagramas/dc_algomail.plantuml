@@ -1,0 +1,53 @@
+@startuml
+
+class AlgoMail {
+
+    + loguearse(String usuarioNombre, Credencial c) bool
+    + MultiFactor verificacionInicial(String nombreUsuario, Password pwdLogueo)
+}
+
+class Usuario {
+    - nombre
+
+    verificar(String usuarioNombre, Credencial credencial) boolean
+
+}
+
+note right of AlgoMail::loguearse
+    AutenticacionSimple s = new AutenticacionSimple(this.usuarios);
+
+    return s.verificar(usuarioNombre, credencial);
+end note
+
+note right of AlgoMail::verificacionInicial
+    AutenticacionMultiple mf = new AutenticacionMultiple(this.usuarios);
+
+    return mf.verificacionInicial(nombreUsuario, pwdLogueo);
+end note
+
+AlgoMail ..> "0..*" Usuario
+AlgoMail  .left.> AutenticacionMultiple : <<instanciate>>
+AlgoMail  .left.> AutenticacionSimple : <<instanciate>>
+
+'AlgoMail .left.> "0..*" Usuario
+'AlgoMail : verificacionInicial(nombreUsuario String, c Password) : MultiFactor
+'
+'class MultiFactor {
+'    + verificacionInicial(nombreUsuario String, c Password) : MultiFactor
+'    + paso02(c CodigoSeguridad) : boolean
+'}
+'MultiFactorFallido : paso02(c CodigoSeguridad) : boolean
+'
+'AlgoMail ..> MultiFactor : <<instanciate>>
+'
+'MultiFactor ..> MultiFactor : <<instanciate>>
+'MultiFactor ..> MultiFactorFallido : <<instanciate>>
+
+
+'class AlgoMailSmalltalk {
+'
+'    + loguearseConPassword(usuarioNombre, password) bool
+'    + loguearseConQr(usuarioNombre, qr) bool
+'}
+
+@enduml

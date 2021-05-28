@@ -1,0 +1,21 @@
+@startuml
+
+AlgoMail : verificacionInicial(nombreUsuario String, c Password) : AutenticacionMultiple
+AlgoMail ..> AutenticacionMultiple : <<instanciate>>
+
+class AutenticacionMultiple {
+    + verificacionInicial(nombreUsuario String, c Password) : AutenticacionMultiple
+    + verificacionSecundaria(c CodigoSeguridad) : boolean
+}
+AutenticacionMultipleFallido : verificacionSecundaria(c CodigoSeguridad) : boolean
+
+
+AutenticacionSimple  <.left. AutenticacionMultiple : <<instanciate>> 
+AutenticacionSimple  <.left. AlgoMail : <<instanciate>>
+
+AutenticacionMultiple ..> AutenticacionMultiple : <<instanciate>>
+AutenticacionMultiple ..> AutenticacionMultipleFallido : <<instanciate>>
+
+AutenticacionSimple : boolean verificar(String usuarioNombre, Credencial credencial)
+
+@enduml

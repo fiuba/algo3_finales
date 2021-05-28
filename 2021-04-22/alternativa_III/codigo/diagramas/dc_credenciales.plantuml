@@ -1,0 +1,24 @@
+@startuml
+
+class Usuario {
+    - nombre
+
+    verificar(String usuarioNombre, Credencial credencial) boolean
+
+}
+
+interface Credencial {
+    + equals(Object o) boolean
+}
+
+QR : equals(Object o) boolean
+Password : equals(Object o) boolean
+CodigoSeguridad : equals(Object o) boolean
+
+Credencial <|.. QR
+Credencial <|.. Password
+Credencial <|.. CodigoSeguridad
+
+Usuario *- "1" Credencial
+
+@enduml
