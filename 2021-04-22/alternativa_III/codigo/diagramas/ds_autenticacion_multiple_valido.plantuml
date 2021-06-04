@@ -1,0 +1,14 @@
+@startuml
+
+title: Un usuario se loguea con password válido y luego con código de seguridad válido
+
+":TestCase" -> ":AlgoMail": verificacionInicial("joaquin", "password valido")
+create "mf :AutenticacionMultiple"
+":AlgoMail" -> "mf :AutenticacionMultiple" : new(usuarios)
+":AlgoMail" -> "mf :AutenticacionMultiple" : verificacionInicial(nombreUsuario, pwdLogueo)
+return [mfConNombre : autenticationMultiple]
+":AlgoMail" --> ":TestCase": [mfConNombre : autenticationMultiple]
+
+":TestCase" -> "mfConNombre : AutenticacionMultiple": verificacionSecundaria(codigoInvalido)
+return true
+@enduml
