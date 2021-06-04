@@ -2,8 +2,7 @@ package edu.fiuba.algo3.algomail;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AlgoMailTest
 {
@@ -113,7 +112,7 @@ class AlgoMailTest
     }
 
     @Test
-    public void unUsuarioSeLogueaConPasswordErroñoYLuegoIngresaCodigoDeSeguridadSatisfactoriamente()
+    public void unUsuarioSeLogueaConPasswordErroñoYLuegoIngresaCodigoDeSeguridadArrojaError()
     {
         String nombreUsuario = "joaquin";
         Password passwordRegistracion = new Password("palabra-clave");
@@ -129,7 +128,8 @@ class AlgoMailTest
         AutenticacionMultiple mf = servicio.verificacionInicial(nombreUsuario, new Password(""));
 
         CodigoSeguridad codigoLogueo = new CodigoSeguridad(new byte[] {1, 3});
-        assertFalse(mf.verificacionSecundaria(codigoLogueo));
+
+        assertThrows(VerificacionImpropia.class, () -> mf.verificacionSecundaria(codigoLogueo));
     }
 
 }
